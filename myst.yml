@@ -1,0 +1,12 @@
+version: 1
+project:
+  title: Python for Chemists
+  authors:
+    - name: Daniel Lucas
+  toc:
+    - file: intro
+    - file: notebooks/molar_mass_calculator.ipynb
+site:
+  options:
+    folders: true
+  template: book-theme
