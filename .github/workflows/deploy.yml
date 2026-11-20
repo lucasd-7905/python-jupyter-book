@@ -27,17 +27,45 @@ jobs:
         with:
           node-version: "22"
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python deps for notebook execution
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter ipykernel
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
       - name: Install MyST
         run: npm install -g mystmd
 
-      - name: Build HTML
+      - name: Build site
         run: myst build --html
+
+      - name: Locate build output
+        id: find
+        run: |
+          echo "--- _build tree ---"
+          ls -R _build || { echo "No _build directory"; exit 1; }
+          if [ -f _build/html/index.html ]; then
+            DIR=_build/html
+          elif [ -f _build/site/index.html ]; then
+            DIR=_build/site
+          else
+            DIR=$(dirname "$(find _build -name index.html | head -n 1)")
+          fi
+          if [ -z "$DIR" ] || [ "$DIR" = "." ]; then
+            echo "Could not find index.html in _build"; exit 1
+          fi
+          echo "Using: $DIR"
+          echo "dir=$DIR" >> "$GITHUB_OUTPUT"
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _build/html
+          path: ${{ steps.find.outputs.dir }}
 
       - id: deployment
         uses: actions/deploy-pages@v4
