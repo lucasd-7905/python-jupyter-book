@@ -9,4 +9,8 @@ project:
 site:
   options:
     folders: true
+    hide_toc: true        # left sidebar (chapter nav)
+    hide_outline: true    # right in-page contents
+    hide_search: true
+    hide_footer_links: true
   template: book-theme
