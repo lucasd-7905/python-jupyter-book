@@ -1,4 +1,4 @@
 format: jb-book
 root: intro
 chapters:
-- file: notebooks/python1
+- file: notebooks/molar_mass_calculator
