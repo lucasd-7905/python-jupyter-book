@@ -1,0 +1,5 @@
+title: Python for Chemists
+author: Daniel Lucas
+execute:
+  execute_notebooks: force   # re-runs all cells on build; use 'off' to keep saved outputs
+  timeout: 120
