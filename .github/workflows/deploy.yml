@@ -41,6 +41,7 @@ jobs:
         run: npm install -g mystmd
 
       - name: Build site
+        run: myst cache clear --all
         run: myst build --html
         env:
           BASE_URL: /python-jupyter-book
