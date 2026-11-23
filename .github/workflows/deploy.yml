@@ -42,7 +42,7 @@ jobs:
 
       - name: Build site
         run: |
-          myst cache clear
+          myst clean --all --yes
           myst build --html
         env:
           BASE_URL: /python-jupyter-book
